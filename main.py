@@ -33,10 +33,12 @@ def user_signup():
     email_error = ''
     username_error = ''
 
-
-    if re.match("\A(?P<name>[\w\-_]+)@(?P<domain>[\w\-_]+).(?P<toplevel>[\w]+)\Z",email,re.IGNORECASE):
-        email = email
-    else:
+    
+    if email.count('@')!=1 or email.count('.')!=1:
+	
+	#re.match("\A(?P<name>[\w\-_]+)@(?P<domain>[\w\-_]+).(?P<toplevel>[\w]+)\Z",email,re.IGNORECASE):
+       # email = email
+   # else:
         email_error = "Email is invalid"
 
     if userName=='':
@@ -61,16 +63,17 @@ def user_signup():
         password_error = 'Password must be between 3 and 20 characters'    
 
     if password != passwordVer:
-        password_error = 'The passwords must match'
+        password_error = 'The Verfication password must match your password'
 
 
 
-    if not password_error and not username_error and not email_error and not passwordVerf_error:
+    if not password_error and not username_error and not passwordVerf_error and not email_error:
         
         
         return render_template('welcome.html', name=userName)
     
     
+	
     else:
         
         return render_template('user-signup.html', password_error=password_error,
